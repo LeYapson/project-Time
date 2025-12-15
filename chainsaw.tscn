@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdm4kxjs4bhwj"]
+
+[ext_resource type="Script" uid="uid://bpgxdq8bfimxy" path="res://chainsaw.gd" id="1_d2a65"]
+[ext_resource type="Texture2D" uid="uid://c4oxhlgesv42m" path="res://assets/enemies/saw_blade.png" id="1_uugy4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d2a65"]
+radius = 17.029387
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ktrm"]
+atlas = ExtResource("1_uugy4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68kjl"]
+atlas = ExtResource("1_uugy4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5hct"]
+atlas = ExtResource("1_uugy4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_spgan"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ktrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68kjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5hct")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Chainsaw" type="Area2D"]
+script = ExtResource("1_d2a65")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4, 4)
+shape = SubResource("CircleShape2D_d2a65")
+debug_color = Color(0.96296173, 0.17719132, 0.20968464, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_spgan")
+frame_progress = 0.8884411
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

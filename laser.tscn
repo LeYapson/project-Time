@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://tbe1cn1vqov1"]
+
+[ext_resource type="Script" uid="uid://b0rcfabkln5xh" path="res://laser.gd" id="1_6vqwg"]
+[ext_resource type="Texture2D" uid="uid://bgu47jtf8g3n1" path="res://assets/projectiles/proj_blue.png" id="2_g6b45"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7vci3"]
+size = Vector2(49, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vqwg"]
+atlas = ExtResource("2_g6b45")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6b45"]
+atlas = ExtResource("2_g6b45")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vci3"]
+atlas = ExtResource("2_g6b45")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xw5cg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vqwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6b45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vci3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Laser" type="Area2D"]
+script = ExtResource("1_6vqwg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 3.5)
+shape = SubResource("RectangleShape2D_7vci3")
+debug_color = Color(0.9567533, 0.1681157, 0.32628742, 0.41960785)
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3.9999998, 6.9999995)
+rotation = 3.1415927
+scale = Vector2(3.9166665, 2.4374998)
+sprite_frames = SubResource("SpriteFrames_xw5cg")
+frame_progress = 0.94114935
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

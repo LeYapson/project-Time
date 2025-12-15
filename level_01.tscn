@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://21w3mhc8ce80"]
+
+[ext_resource type="Texture2D" uid="uid://d1vi2rtd4yybf" path="res://assets/tiles/background_purple_tiles.png" id="1_3imfn"]
+[ext_resource type="Texture2D" uid="uid://do7745sntfal5" path="res://icon.svg" id="4_iafiv"]
+[ext_resource type="PackedScene" uid="uid://bma22wn12sbka" path="res://Player.tscn" id="5_kdijb"]
+[ext_resource type="PackedScene" uid="uid://bdm4kxjs4bhwj" path="res://chainsaw.tscn" id="5_qrmce"]
+[ext_resource type="PackedScene" uid="uid://ckpvnbg1f7afy" path="res://black_hole.tscn" id="6_8q3i6"]
+[ext_resource type="PackedScene" uid="uid://tbe1cn1vqov1" path="res://laser.tscn" id="6_qrmce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdijb"]
+size = Vector2(1174, 79)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrmce"]
+size = Vector2(691, 131)
+
+[node name="Level01" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
+position = Vector2(576.5, 324)
+ignore_rotation = false
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(576.50006, 324.00003)
+scale = Vector2(3.6406252, 4.1375)
+texture = ExtResource("1_3imfn")
+
+[node name="ceiling" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="ceiling"]
+position = Vector2(580.5, 33.25)
+scale = Vector2(9.1484375, 0.60546875)
+texture = ExtResource("4_iafiv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ceiling"]
+position = Vector2(577, 29.5)
+shape = SubResource("RectangleShape2D_kdijb")
+
+[node name="floor" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="floor"]
+position = Vector2(340, 652)
+scale = Vector2(5.40625, 1)
+texture = ExtResource("4_iafiv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(338.5, 653.5)
+shape = SubResource("RectangleShape2D_qrmce")
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("5_kdijb")]
+position = Vector2(67, 520)
+collision_mask = 6
+
+[node name="Laser" parent="." groups=["lasers"] instance=ExtResource("6_qrmce")]
+position = Vector2(1135, 536)
+
+[node name="Chainsaw" parent="." instance=ExtResource("5_qrmce")]
+position = Vector2(978, 205)
+
+[node name="BlackHole" parent="." groups=["black_holes"] instance=ExtResource("6_8q3i6")]
+visible = false
+position = Vector2(358, 561)
