@@ -61,5 +61,4 @@ position = Vector2(1135, 536)
 position = Vector2(978, 205)
 
 [node name="BlackHole" parent="." groups=["black_holes"] instance=ExtResource("6_8q3i6")]
-visible = false
 position = Vector2(358, 561)
