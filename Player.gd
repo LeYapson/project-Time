@@ -4,6 +4,11 @@ extends RigidBody2D
 @export var jump_force := -400.0
 var is_rewinding := false
 var saved_positions := []
+@onready var anim = $Sprite2D
+
+
+func _ready() :
+	anim.play("Idle")
 
 func _physics_process(delta):
 	# 1. Enregistrer la position ACTUELLE (toujours, pas seulement en rewind)
@@ -13,18 +18,21 @@ func _physics_process(delta):
 
 	# 2. Déplacement gauche/droite
 	var input_x = Input.get_axis("move_left", "move_right")
+	
 	linear_velocity.x = input_x * speed
 
 	# 3. Saut (adapté à la gravité)
 	if Input.is_action_just_pressed("jump"):
+		anim.play("jump")
 		if is_rewinding:
 			linear_velocity.y = -jump_force  # Saut vers le bas en rewind
 		else:
 			linear_velocity.y = jump_force   # Saut vers le haut en normal
 
 func die():
+	
+	anim.play("phantom")
 	is_rewinding = true
-	$Sprite2D.modulate = Color(0, 0, 1)
 	gravity_scale = -1
 
 	# Inverse les lasers
@@ -52,7 +60,7 @@ func die():
 	# Remet tout à la normale
 	gravity_scale = 1
 	is_rewinding = false
-	$Sprite2D.modulate = Color(1, 1, 1)
+	anim.play("Idle")
 	if camera:
 		camera.rotation_degrees = 0
 	for laser in lasers:
