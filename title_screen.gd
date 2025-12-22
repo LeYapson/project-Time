@@ -17,4 +17,4 @@ func _on_play_button_pressed() -> void:
 	$AnimationPlayer2.play("fondu")  # Lance l'animation de la faille
 	await $AnimationPlayer.animation_finished
 	await $AnimationPlayer2.animation_finished
-	get_tree().change_scene_to_file("res://level_01.tscn")  # Passe à la cinématique
+	get_tree().change_scene_to_file("res://intro_cinematic.tscn")  # Passe à la cinématique
