@@ -1,9 +1,10 @@
 extends Node2D
 
 @onready var anim = $AnimationPlayer
-
+@onready var anim2 = $AnimationPlayer2
 func _ready():
 	anim.play("control_room")
+	anim2.play("fondu entrant")
 
 
 

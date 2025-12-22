@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ub4a567stqwy"]
+[gd_scene load_steps=52 format=3 uid="uid://ub4a567stqwy"]
 
 [ext_resource type="Texture2D" uid="uid://cvaaxkga4dk5d" path="res://assets/TitleScreen/TitleScreen.png" id="1_5pgor"]
 [ext_resource type="Texture2D" uid="uid://us1jd6r77mio" path="res://assets/intro/Sprite-0001-Sheet.png" id="1_6ydyj"]
@@ -335,6 +335,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../fondu:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_5pgor"]
 resource_name = "control_room"
@@ -353,10 +365,26 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_ce03n"]
+resource_name = "fondu entrant"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../fondu:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5f1xr"]
 _data = {
 &"RESET": SubResource("Animation_sid8i"),
-&"control_room": SubResource("Animation_5pgor")
+&"control_room": SubResource("Animation_5pgor"),
+&"fondu entrant": SubResource("Animation_ce03n")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ce03n"]
@@ -394,11 +422,24 @@ libraries = {
 &"": SubResource("AnimationLibrary_5f1xr")
 }
 
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Camera2D")
+libraries = {
+&"": SubResource("AnimationLibrary_5f1xr")
+}
+
 [node name="next_part" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="next_part"]
 position = Vector2(747, 97)
 shape = SubResource("RectangleShape2D_ce03n")
+
+[node name="fondu" type="ColorRect" parent="."]
+offset_left = -575.0
+offset_top = -324.0
+offset_right = 578.0
+offset_bottom = 325.0
+color = Color(0, 0, 0, 1)
 
 [connection signal="timeout" from="player/Timer" to="player" method="_on_timer_timeout"]
 [connection signal="body_entered" from="next_part" to="." method="_on_next_part_body_entered"]
